@@ -1,0 +1,72 @@
+# ====================
+# Node.js 依赖
+# ====================
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ====================
+# 上传和构建产物
+# ====================
+uploads/
+builds/
+dist/
+build/
+
+# ====================
+# 用户数据和日志
+# ====================
+userData/
+*.log
+logs/
+*.jsonl
+
+# ====================
+# 环境配置
+# ====================
+.env
+.env.local
+.env.*.local
+
+# ====================
+# 资源文件（视频等大文件）
+# ====================
+resources/*.mp4
+resources/*.mov
+resources/*.avi
+resources/*.mkv
+# 保留 resources/dataNew.json 用于示例
+!resources/dataNew.json
+
+# ====================
+# 构建产物
+# ====================
+*.apk
+*.exe
+*.app
+*.ipa
+
+# ====================
+# 编辑器和操作系统
+# ====================
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*~
+
+# ====================
+# 测试
+# ====================
+coverage/
+.nyc_output/
+
+# ====================
+# 临时文件
+# ====================
+tmp/
+temp/
+*.tmp
+.cache/

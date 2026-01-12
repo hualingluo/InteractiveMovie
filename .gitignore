@@ -1,0 +1,102 @@
+# ====================
+# Node.js / NPM
+# ====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+
+# ====================
+# 构建产物
+# ====================
+dist/
+dist-ssr/
+build/
+*.apk
+*.exe
+*.app
+*.ipa
+
+# ====================
+# 后端特定
+# ====================
+backend/uploads/
+backend/builds/
+backend/userData/
+backend/resources/*.mp4
+backend/resources/*.json
+
+# ====================
+# 前端特定
+# ====================
+djeditor/node_modules/
+djeditor/dist/
+djeditor/.vscode/*
+!.vscode/extensions.json
+
+# ====================
+# Flutter 项目
+# ====================
+flutterPack-master/build/
+flutterPack-master/.dart_tool/
+flutterPack-master/.flutter-plugins
+flutterPack-master/.flutter-plugins-dependencies
+flutterPack-master/pubspec.lock
+
+# ====================
+# 环境配置 / 敏感信息
+# ====================
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+credentials.json
+secrets.json
+
+# ====================
+# 日志文件
+# ====================
+logs/
+*.log
+lerna-debug.log*
+
+# ====================
+# 编辑器 / IDE
+# ====================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+
+# ====================
+# 操作系统
+# ====================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ====================
+# 测试覆盖率
+# ====================
+coverage/
+.nyc_output/
+
+# ====================
+# 临时文件
+# ====================
+tmp/
+temp/
+*.tmp
+*.cache
+.cache/
