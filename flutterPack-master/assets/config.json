@@ -1,34 +1,43 @@
 {
+  "metadata": {
+    "id": "p_1768283375731",
+    "name": "我的新剧本",
+    "author": "游客创作者",
+    "coverUrl": "",
+    "description": "这是一个使用抖剧 DOUJU 创建的互动剧本。",
+    "likes": 0,
+    "views": 0,
+    "remixCount": 0,
+    "status": "draft",
+    "styleMode": "late_shift",
+    "interactivity": "classic",
+    "layout": "cinematic",
+    "createdAt": "2026/1/13"
+  },
   "nodes": {
     "node_001": {
       "id": "node_001",
-      "title": "凤起长街",
-      "content": "朱墙映日，金瓦流光。你身为高门庶女，终踏入这步步惊心的红墙之内。远处钟声悠远，似是前朝的叹息，亦是新局的序章。面对深宫幽冷，你当如何自处？",
+      "title": "朱墙红梦",
+      "content": "金风飒飒，玉露初凝。你身为苏家最不受宠的庶女，终是换上这一身累赘的云霞缎，踏入了这重重锁闭的紫禁城。红墙如血，金瓦流辉，是荣华富贵的起点，亦是万丈深渊的入口。你立于午门之下，任由寒风吹乱鬓角。是俯首称臣，还是在这盛世天下中，博一个翻云覆雨？",
       "options": [
         {
           "id": "opt_001_1",
           "isDefault": true,
-          "label": "敛翼避锋，卑辞厚礼以求安",
+          "label": "步步为营，隐忍待时",
           "targetId": "node_002"
-        },
-        {
-          "id": "opt_001_2",
-          "isDefault": false,
-          "label": "披荆斩棘，以此身为刃破残局",
-          "targetId": "node_003"
         }
       ],
       "type": "scene",
-      "x": 100,
+      "x": 400,
       "y": 100,
       "mediaType": "video",
-      "mediaSrc": "start.mp4",
+      "mediaSrc": "videos/node_001.mp4",
       "audioSrc": "",
       "styleMode": "shengshi",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
-        "autoTransition": false,
+        "autoTransition": true,
         "duration": 15
       },
       "layout": {
@@ -50,33 +59,33 @@
     },
     "node_002": {
       "id": "node_002",
-      "title": "潜龙在渊",
-      "content": "你在偏殿隐忍数月，然树欲静而风不止。贵妃以御赐珠串遗失为由，欲搜查你的寝宫。此乃栽赃陷害之计，意在让你彻底消失于这红墙根下。",
+      "title": "投石问路",
+      "content": "内廷诡谲，党羽盘根。当今后宫，贵妃独宠，权倾朝野；皇后端庄，母仪天下却深藏不露。你是愿依附贵妃之势，借火焚林？还是投奔皇后麾下，借力打力？亦或是孤身孑影，在权力指缝间寻找那一线天机？",
       "options": [
         {
           "id": "opt_002_1",
-          "isDefault": true,
-          "label": "泣诉求全，引得圣上侧目垂怜",
-          "targetId": "node_004"
+          "isDefault": false,
+          "label": "奉承贵妃：烈火烹油之盛",
+          "targetId": "node_003"
         },
         {
           "id": "opt_002_2",
-          "isDefault": false,
-          "label": "以牙还牙，暗将珠串送入敌手",
-          "targetId": "node_005"
+          "isDefault": true,
+          "label": "结盟皇后：细水长流之深",
+          "targetId": "node_004"
         }
       ],
       "type": "decision",
-      "x": 300,
-      "y": 50,
+      "x": 400,
+      "y": 250,
       "mediaType": "video",
-      "mediaSrc": "n2.mp4",
+      "mediaSrc": "videos/node_002.mp4",
       "audioSrc": "",
       "styleMode": "shengshi",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
-        "autoTransition": false,
+        "autoTransition": true,
         "duration": 15
       },
       "layout": {
@@ -98,33 +107,33 @@
     },
     "node_003": {
       "id": "node_003",
-      "title": "锋芒毕露",
-      "content": "你初入宫廷便展露才华，虽获帝宠，却也成了众矢之的。皇后赐下鸩酒，名为赏赐，实为试探。这杯中物，是权力的祭品，还是通往深渊的门票？",
+      "title": "烈焰灼身",
+      "content": "贵妃生性乖戾，视你为走狗。她命你毒害受宠的陈嫔。此时此刻，你方知这锦绣前程之下，竟是森森白骨。你若从了，便是将刀柄递入他人之手；若是不从，此刻便要折在这延禧宫中。杀机如潮，你将如何抉择？",
       "options": [
         {
           "id": "opt_003_1",
           "isDefault": false,
-          "label": "慷慨赴义，赌那万分之一的生机",
-          "targetId": "node_006"
+          "label": "顺从施毒：自断退路",
+          "targetId": "node_005"
         },
         {
           "id": "opt_003_2",
           "isDefault": true,
-          "label": "祸水东引，借权臣之手解此危局",
-          "targetId": "node_005"
+          "label": "反戈一击：告密皇后",
+          "targetId": "node_004"
         }
       ],
       "type": "decision",
-      "x": 300,
-      "y": 150,
+      "x": 200,
+      "y": 400,
       "mediaType": "video",
-      "mediaSrc": "n3.mp4",
+      "mediaSrc": "videos/node_003.mp4",
       "audioSrc": "",
       "styleMode": "shengshi",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
-        "autoTransition": false,
+        "autoTransition": true,
         "duration": 15
       },
       "layout": {
@@ -142,35 +151,31 @@
           "h": 30
         },
         "uiBackgroundSrc": ""
-      },
-      "monetization": {
-        "type": "ad",
-        "adDescription": "观看广告解锁这个隐藏的剧情分支"
       }
     },
     "node_004": {
       "id": "node_004",
-      "title": "冷宫回望",
-      "content": "你的柔弱未能唤回圣心，反被冠以舞弊之名黜入冷宫。月华凄冷，荒草离披。你在此枯坐一夜，往事如烟，悔意丛生。若能重来，你是否还会如此选择？",
+      "title": "凤栖梧桐",
+      "content": "皇后深谋远虑，赞许你的机敏。在她的扶持下，你由末等庶女擢升为苏婕妤。然而，天子之情薄如蝉翼，皇后的恩宠亦有代价。她要你入职尚书房，替她监视前朝动向。权柄的滋味令你沉醉，可你亦深知，自己不过是皇后手中一枚牵制外戚的棋子。",
       "options": [
         {
           "id": "opt_004_1",
           "isDefault": true,
-          "label": "梦回长街，重写这浮生一梦",
-          "targetId": "node_001"
+          "label": "入主尚书：染指朝政",
+          "targetId": "node_006"
         }
       ],
-      "type": "interrupt",
-      "x": 500,
-      "y": 50,
-      "mediaType": "video",
-      "mediaSrc": "n4.mp4",
+      "type": "scene",
+      "x": 600,
+      "y": 400,
+      "mediaType": "none",
+      "mediaSrc": "",
       "audioSrc": "",
       "styleMode": "shengshi",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
-        "autoTransition": false,
+        "autoTransition": true,
         "duration": 15
       },
       "layout": {
@@ -192,33 +197,27 @@
     },
     "node_005": {
       "id": "node_005",
-      "title": "权谋巅峰",
-      "content": "山河破碎风飘絮，乾坤动荡月朦胧。你已位极皇贵妃，手握重权。此时边关告急，外戚专权。是牺牲万千将士保住你的尊荣，还是散尽家财为万民谋一生机？",
+      "title": "废井残月",
+      "content": "百密一疏。陈嫔之死惊动龙颜，贵妃翻脸无情，将一切罪责推于你身。你被褫夺封号，打入冷宫。残月如钩，枯叶满地，你在这荒芜的院落中，是否悔不当初？若能重来，你是否还会踏入这吞噬灵魂的权力旋涡？",
       "options": [
         {
           "id": "opt_005_1",
-          "isDefault": false,
-          "label": "弃小情而取大义，孤身垂帘定江山",
-          "targetId": "node_007"
-        },
-        {
-          "id": "opt_005_2",
           "isDefault": true,
-          "label": "握权柄而视众生，纵使洪水滔天又何妨",
-          "targetId": "node_008"
+          "label": "一梦南柯：重回入宫之日",
+          "targetId": "node_001"
         }
       ],
-      "type": "decision",
-      "x": 500,
-      "y": 150,
-      "mediaType": "video",
-      "mediaSrc": "n5.mp4",
+      "type": "interrupt",
+      "x": 200,
+      "y": 550,
+      "mediaType": "none",
+      "mediaSrc": "",
       "audioSrc": "",
       "styleMode": "shengshi",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
-        "autoTransition": false,
+        "autoTransition": true,
         "duration": 15
       },
       "layout": {
@@ -236,36 +235,37 @@
           "h": 30
         },
         "uiBackgroundSrc": ""
-      },
-      "monetization": {
-        "type": "paid",
-        "price": 50,
-        "adDescription": "购买金币解锁核心真相"
       }
     },
     "node_006": {
       "id": "node_006",
-      "title": "断魂残雪",
-      "content": "酒入愁肠，化作穿心之毒。你倒在漫天残雪中，看着那曾渴求的权力之巅渐行渐远。这一世，你输在了过于孤傲，未解人心之毒甚于鸩羽。",
+      "title": "岁除惊变",
+      "content": "除夕盛宴，灯火辉煌。你却在御书房密折中发现了苏家勾结敌国的铁证。若此折呈上，苏家满门抄斩；若按下不表，便是欺君罔上。一边是生养你的家族血脉，一边是触手可及的锦绣前程。家国大义，利弊权衡，你的心跳如擂鼓般沉闷。",
       "options": [
         {
           "id": "opt_006_1",
+          "isDefault": false,
+          "label": "大义灭亲：亲手埋葬苏家",
+          "targetId": "node_007"
+        },
+        {
+          "id": "opt_006_2",
           "isDefault": true,
-          "label": "魂归来处，再战这锦绣牢笼",
-          "targetId": "node_001"
+          "label": "毁尸灭迹：守护血脉之根",
+          "targetId": "node_008"
         }
       ],
-      "type": "interrupt",
-      "x": 500,
-      "y": 250,
-      "mediaType": "video",
-      "mediaSrc": "n6.mp4",
+      "type": "decision",
+      "x": 600,
+      "y": 550,
+      "mediaType": "none",
+      "mediaSrc": "",
       "audioSrc": "",
       "styleMode": "shengshi",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
-        "autoTransition": false,
+        "autoTransition": true,
         "duration": 15
       },
       "layout": {
@@ -287,20 +287,20 @@
     },
     "node_007": {
       "id": "node_007",
-      "title": "盛世女帝",
-      "content": "龙袍加身，负手立于太和殿顶。你以红妆之躯，挽狂澜于既倒。虽万称孤，然天下承平，海晏河清。这一曲盛世天下，终由你亲手谱就。",
+      "title": "孤凰登极",
+      "content": "你亲手呈上密折，苏家覆灭，鲜血染红了宫外的古道。皇帝感念你的忠诚，册封你为皇贵妃，代行皇后职权。你站在万民敬仰的太和殿前，听着那山呼万岁的回响，身边却无一亲信。你终是赢得了这天下，也终是输掉了那颗曾经赤诚的心。盛世天下，唯余一人。",
       "options": [],
       "type": "ending",
-      "x": 700,
-      "y": 100,
-      "mediaType": "video",
-      "mediaSrc": "n7.mp4",
+      "x": 450,
+      "y": 700,
+      "mediaType": "none",
+      "mediaSrc": "",
       "audioSrc": "",
       "styleMode": "shengshi",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
-        "autoTransition": false,
+        "autoTransition": true,
         "duration": 15
       },
       "layout": {
@@ -322,20 +322,27 @@
     },
     "node_008": {
       "id": "node_008",
-      "title": "焚情余烬",
-      "content": "你赢了权力，却输了天下。叛军攻破城门之日，你独立于摘星楼上，看烈火吞噬这金碧辉煌的囚牢。庶女之身，搅弄风云，终不过是一场繁华错梦。",
-      "options": [],
+      "title": "灰飞烟灭",
+      "content": "你烧毁了证据，却不料这竟是皇帝为你布下的最后一局试探。帝王之爱，终究抵不过对权力的猜忌。御林军破门而入，你看着那熟悉的、曾经对你温柔低语的君王，眼中满是冷酷。火光冲天，你在这富丽堂皇的深宫中化为飞灰。若有来生，定不再入这围城。",
+      "options": [
+        {
+          "id": "opt_008_1",
+          "isDefault": true,
+          "label": "因果轮转：再续前缘",
+          "targetId": "node_001"
+        }
+      ],
       "type": "ending",
-      "x": 700,
-      "y": 200,
-      "mediaType": "video",
-      "mediaSrc": "n8.mp4",
+      "x": 750,
+      "y": 700,
+      "mediaType": "none",
+      "mediaSrc": "",
       "audioSrc": "",
       "styleMode": "shengshi",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
-        "autoTransition": false,
+        "autoTransition": true,
         "duration": 15
       },
       "layout": {
@@ -361,5 +368,6 @@
     "x": 0,
     "y": 0,
     "zoom": 1
-  }
+  },
+  "updatedAt": "2026-01-13T05:57:16.405Z"
 }

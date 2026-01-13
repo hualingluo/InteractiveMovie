@@ -1,10 +1,34 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import '../models/story_data.dart';
+
+/// 获取 exe 运行目录下的 data 文件夹路径
+String getDataPath() {
+  try {
+    // 获取 exe 文件的完整路径
+    final exePath = Platform.resolvedExecutable;
+    debugPrint('EXE 路径: $exePath');
+
+    // 获取 exe 所在目录
+    final exeDir = Directory(exePath).parent;
+    debugPrint('EXE 目录: ${exeDir.path}');
+
+    // 构建 data 目录路径
+    final dataDir = Directory('${exeDir.path}${Platform.pathSeparator}data');
+    debugPrint('Data 目录: ${dataDir.path}');
+
+    return dataDir.path;
+  } catch (e) {
+    debugPrint('获取数据路径失败: $e');
+    // 如果失败，返回相对路径作为降级方案
+    return 'data';
+  }
+}
 
 class StoryController extends ChangeNotifier {
   StoryData? storyData;
@@ -37,7 +61,23 @@ class StoryController extends ChangeNotifier {
     videoController = VideoController(player);
 
     try {
-      final jsonStr = await rootBundle.loadString('assets/config.json');
+      // 优先从 data/config.json 读取（release 目录下的外部配置）
+      final dataPath = getDataPath();
+      final configDataFile = File('$dataPath${Platform.pathSeparator}config.json');
+      debugPrint('尝试加载配置文件: ${configDataFile.path}');
+
+      String jsonStr;
+
+      if (configDataFile.existsSync()) {
+        jsonStr = await configDataFile.readAsString();
+        debugPrint('✅ 加载外部配置: ${configDataFile.path}');
+      } else {
+        // 降级到 assets（打包在 exe 内的配置）
+        debugPrint('⚠️ 外部配置不存在，降级到 assets');
+        jsonStr = await rootBundle.loadString('assets/config.json');
+        debugPrint('✅ 加载 assets 配置: assets/config.json');
+      }
+
       final data = json.decode(jsonStr);
       storyData = StoryData.fromJson(data);
 
@@ -48,7 +88,7 @@ class StoryController extends ChangeNotifier {
         debugPrint("错误：剧情数据中没有节点");
       }
     } catch (e) {
-      debugPrint("加载配置失败: $e");
+      debugPrint("❌ 加载配置失败: $e");
     }
   }
 
@@ -65,7 +105,46 @@ class StoryController extends ChangeNotifier {
     if (newNode.mediaType == "video" && newNode.mediaSrc.isNotEmpty) {
       // 设置不循环播放
       await player.setPlaylistMode(PlaylistMode.none);
-      await player.open(Media('asset:///assets/videos/${newNode.mediaSrc}'));
+
+      try {
+        // 优先从 data/videos 读取（release 目录下的视频）
+        final dataPath = getDataPath();
+
+        // 处理 mediaSrc，移除可能存在的 "videos/" 前缀
+        String videoFileName = newNode.mediaSrc;
+        if (videoFileName.startsWith('videos/')) {
+          videoFileName = videoFileName.substring(7); // 移除 "videos/" 前缀
+        }
+
+        final videoPath = '$dataPath${Platform.pathSeparator}videos${Platform.pathSeparator}$videoFileName';
+        final videoFile = File(videoPath);
+
+        debugPrint('尝试加载视频: ${videoFile.path}');
+
+        if (videoFile.existsSync()) {
+          // 使用本地文件路径
+          await player.open(Media(videoFile.absolute.path));
+          debugPrint('✅ 加载本地视频: ${videoFile.absolute.path}');
+        } else {
+          // 降级到 assets
+          debugPrint('⚠️ 本地视频不存在，降级到 assets');
+          await player.open(Media('asset:///assets/videos/$videoFileName'));
+          debugPrint('✅ 加载 assets 视频: assets/videos/$videoFileName');
+        }
+      } catch (e) {
+        debugPrint('❌ 视频加载失败: $e');
+        // 如果出错，尝试降级到 assets
+        try {
+          String videoFileName = newNode.mediaSrc;
+          if (videoFileName.startsWith('videos/')) {
+            videoFileName = videoFileName.substring(7);
+          }
+          await player.open(Media('asset:///assets/videos/$videoFileName'));
+          debugPrint('✅ 降级加载 assets 视频');
+        } catch (e2) {
+          debugPrint('❌ assets 视频也加载失败: $e2');
+        }
+      }
     } else {
       await player.stop();
       // 如果没有视频，使用兜底定时器

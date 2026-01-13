@@ -3,8 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runFlutterBuild } from './src/services/build/flutterBuilder.js';
-import { buildExe } from './src/services/build/flutterBuilderNew.js';
+import { runFlutterBuild } from './src/services/builder/flutterBuilder.js';
+import { buildExe } from './src/services/builder/flutterBuilderNew.js';
 import scriptRoutes from './src/routes/scriptRoutes.js';
 
 // --- 路径变量配置 ---
@@ -81,7 +81,8 @@ app.get('/api/start-build-new', async (req, res) => {
 
     const { projectPath } = req.query;
 
-    if (!projectPath) {
+    // projectPath 可以为空字符串，表示使用 resources/scripts/script.json
+    if (projectPath === undefined) {
         return res.status(400).json({ success: false, message: '缺少项目路径参数' });
     }
 
@@ -90,7 +91,7 @@ app.get('/api/start-build-new', async (req, res) => {
 
     // 2. 在后台异步执行，不使用 await 阻塞响应
     isBuilding = true;
-    buildExe(projectPath)
+    buildExe(projectPath || '')
         .then(result => {
             console.log('后台打包完成:', result);
         })

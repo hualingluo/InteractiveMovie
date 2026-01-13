@@ -1,5 +1,0 @@
-{
-  "name": "djEditor",
-  "description": "AIGC+UGC 互动电影制作平台，集成 Gemini 3 Agent、Veo 3.1 视频生成与 Nano Banana 2 图像生成技术。",
-  "requestFramePermissions": []
-}

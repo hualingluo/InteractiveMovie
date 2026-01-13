@@ -26,6 +26,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/config.json
-    - assets/videos/    # 必须加上这一行，让 Flutter 包含这个文件夹下的所有视频
+  # assets:
+  #   - assets/config.json
+  #   - assets/videos/    # 必须加上这一行，让 Flutter 包含这个文件夹下的所有视频

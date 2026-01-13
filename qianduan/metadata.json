@@ -1,0 +1,8 @@
+{
+  "name": "抖剧DOUJU 互动电影编辑器 多模式",
+  "description": "基于 AIGC+UGC 的互动电影开放平台，支持 Veo 3.1 视频生成与沉浸式交互播放引擎。",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

@@ -26,6 +26,8 @@ build/
 backend/uploads/
 backend/builds/
 backend/userData/
+backend/scripts-storage/
+backend/resources/videos/
 backend/resources/*.mp4
 backend/resources/*.json
 
@@ -36,6 +38,10 @@ djeditor/node_modules/
 djeditor/dist/
 djeditor/.vscode/*
 !.vscode/extensions.json
+qianduan/node_modules/
+qianduan/dist/
+qianduan/.env.local
+qianduan/.env.*.local
 
 # ====================
 # Flutter 项目
@@ -45,6 +51,7 @@ flutterPack-master/.dart_tool/
 flutterPack-master/.flutter-plugins
 flutterPack-master/.flutter-plugins-dependencies
 flutterPack-master/pubspec.lock
+flutterPack-master/assets/videos/
 
 # ====================
 # 环境配置 / 敏感信息
