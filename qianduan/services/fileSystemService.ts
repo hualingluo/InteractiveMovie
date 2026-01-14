@@ -203,8 +203,8 @@ export const getMediaFileUrl = async (
     const fileName = pathParts.pop() || '';
     const folderName = pathParts.pop() || '';
 
-    const mediaDir = await directoryHandle.getDirectoryHandle(folderName);
-    const fileHandle = await mediaDir.getFileHandle(fileName);
+    const mediaDir = await directoryHandle.getDirectoryHandle(folderName, { create: false });
+    const fileHandle = await mediaDir.getFileHandle(fileName, { create: false });
     const file = await (fileHandle as FileSystemHandle).getFile();
 
     return URL.createObjectURL(file);
@@ -228,7 +228,7 @@ export const deleteMediaFile = async (
     const fileName = pathParts.pop() || '';
     const folderName = pathParts.pop() || '';
 
-    const mediaDir = await directoryHandle.getDirectoryHandle(folderName);
+    const mediaDir = await directoryHandle.getDirectoryHandle(folderName, { create: false });
     await mediaDir.removeEntry(fileName);
 
     console.log(`媒体文件已删除: ${relativePath}`);
