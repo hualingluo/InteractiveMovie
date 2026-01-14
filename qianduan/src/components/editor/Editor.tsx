@@ -177,6 +177,8 @@ export const Editor: React.FC<EditorProps> = ({
         <PreviewPlayer
           nodes={nodes}
           startId={previewStartId}
+          folderHandle={useProjectStore.getState().folderHandle}
+          mediaUrls={useEditorStore.getState().mediaUrls}
           onClose={() => setIsPreviewOpen(false)}
         />
       )}

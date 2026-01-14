@@ -1,7 +1,8 @@
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { StoryNode, StoryOption, StyleMode } from '../types';
 import * as Icons from './Icons';
+import { getMediaFileUrl } from '../services/fileSystemService';
 
 interface Props {
   nodes: Record<string, StoryNode>;
@@ -14,16 +15,82 @@ interface Props {
 export const PreviewPlayer: React.FC<Props> = ({ nodes, startId, folderHandle, mediaUrls = {}, onClose }) => {
   const [currentId, setCurrentId] = useState(startId);
   const [showOptions, setShowOptions] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(100); 
+  const [timeLeft, setTimeLeft] = useState(100);
   const [isLocked, setIsLocked] = useState(false);
   const [unlocking, setUnlocking] = useState(false);
   const [unlockedIds, setUnlockedIds] = useState<Set<string>>(new Set());
+  const [localMediaUrls, setLocalMediaUrls] = useState<Record<string, string>>({});
+  const [isLoadingMedia, setIsLoadingMedia] = useState(false);
+  const [mediaError, setMediaError] = useState(false);
 
   const node = nodes[currentId];
   const styleMode: StyleMode = node?.styleMode || 'late_shift';
-  
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const timerRef = useRef<number | null>(null);
+
+  // 加载本地媒体文件
+  useEffect(() => {
+    const loadLocalMedia = async () => {
+      if (!folderHandle || !node?.mediaSrc) return;
+
+      // 如果已经有 mediaUrls，优先使用
+      if (mediaUrls[currentId]) {
+        return;
+      }
+
+      // 如果 mediaSrc 是相对路径且不是 http/https/blob URL
+      if (node.mediaSrc &&
+          !node.mediaSrc.startsWith('http') &&
+          !node.mediaSrc.startsWith('blob:') &&
+          !node.mediaSrc.startsWith('data:')) {
+        setIsLoadingMedia(true);
+        setMediaError(false);
+        try {
+          const url = await getMediaFileUrl(folderHandle, node.mediaSrc);
+          setLocalMediaUrls(prev => ({ ...prev, [currentId]: url }));
+        } catch (error) {
+          console.warn(`无法加载本地媒体文件 ${node.mediaSrc}:`, error);
+          setMediaError(true);
+        } finally {
+          setIsLoadingMedia(false);
+        }
+      }
+    };
+
+    loadLocalMedia();
+  }, [currentId, node, folderHandle]);
+
+  // 获取当前节点的媒体 URL
+  const currentMediaUrl = useMemo(() => {
+    return mediaUrls[currentId] || localMediaUrls[currentId] || node?.mediaSrc;
+  }, [currentId, mediaUrls, localMediaUrls, node]);
+
+  // 键盘快捷键支持
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        if (videoRef.current) {
+          if (videoRef.current.paused) {
+            videoRef.current.play();
+          } else {
+            videoRef.current.pause();
+          }
+        }
+      } else if (e.code === 'Escape') {
+        onClose();
+      } else if (e.code === 'KeyR') {
+        if (videoRef.current) {
+          videoRef.current.currentTime = 0;
+          videoRef.current.play();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [onClose]);
 
   useEffect(() => {
     // 商业化锁定检查
@@ -138,10 +205,28 @@ export const PreviewPlayer: React.FC<Props> = ({ nodes, startId, folderHandle, m
     <div className={`fixed inset-0 z-50 bg-black text-white font-sans overflow-hidden select-none`}>
       <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative w-full aspect-[21/9] bg-slate-900 overflow-hidden shadow-2xl">
-              {node.mediaType === 'video' && node.mediaSrc ? (
-                  <video ref={videoRef} src={mediaUrls[currentId] || node.mediaSrc} autoPlay onTimeUpdate={handleTimeUpdate} className="w-full h-full object-cover" />
+              {isLoadingMedia ? (
+                <div className="w-full h-full flex flex-col items-center justify-center gap-4">
+                  <Icons.Loader2 className="animate-spin text-white/50" size={48} />
+                  <p className="text-white/50 text-sm">加载媒体文件中...</p>
+                </div>
+              ) : mediaError ? (
+                <div className="w-full h-full flex flex-col items-center justify-center gap-4">
+                  <Icons.Video size={48} className="text-red-500/50" />
+                  <p className="text-red-400 text-sm">无法加载媒体文件</p>
+                  <p className="text-white/30 text-xs">{node?.mediaSrc}</p>
+                </div>
+              ) : node.mediaType === 'video' && node.mediaSrc ? (
+                  <video
+                    ref={videoRef}
+                    src={currentMediaUrl}
+                    autoPlay
+                    onTimeUpdate={handleTimeUpdate}
+                    onError={() => setMediaError(true)}
+                    className="w-full h-full object-cover"
+                  />
               ) : (
-                  <img src={mediaUrls[currentId] || node.mediaSrc || 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000'} className="w-full h-full object-cover opacity-80" />
+                  <img src={currentMediaUrl || 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000'} className="w-full h-full object-cover opacity-80" />
               )}
               {styleMode === 'shengshi' && <div className="absolute inset-0 border-[40px] border-double border-amber-900/20 pointer-events-none" />}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent pointer-events-none" />
@@ -149,6 +234,64 @@ export const PreviewPlayer: React.FC<Props> = ({ nodes, startId, folderHandle, m
       </div>
 
       <button onClick={onClose} className="absolute top-8 right-8 p-3 bg-white/5 hover:bg-white/20 rounded-full z-50 transition-all"><Icons.X size={24} /></button>
+
+      {/* 播放控制按钮 */}
+      <div className="absolute top-8 left-8 flex gap-2 z-50">
+        <button
+          onClick={() => {
+            if (videoRef.current) {
+              if (videoRef.current.paused) {
+                videoRef.current.play();
+              } else {
+                videoRef.current.pause();
+              }
+            }
+          }}
+          className="p-3 bg-white/5 hover:bg-white/20 rounded-full transition-all"
+          title="播放/暂停"
+        >
+          <Icons.Play size={24} />
+        </button>
+        <button
+          onClick={() => {
+            if (videoRef.current) {
+              videoRef.current.currentTime = 0;
+              videoRef.current.play();
+            }
+          }}
+          className="p-3 bg-white/5 hover:bg-white/20 rounded-full transition-all"
+          title="重新播放"
+        >
+          <Icons.Monitor size={24} />
+        </button>
+        <button
+          onClick={() => {
+            // 跳转到开始节点
+            const startNodeId = Object.keys(nodes).find(id => id === 'start') || Object.keys(nodes)[0];
+            if (startNodeId) {
+              setCurrentId(startNodeId);
+            }
+          }}
+          className="p-3 bg-white/5 hover:bg-white/20 rounded-full transition-all"
+          title="返回开始"
+        >
+          <Icons.ChevronLeft size={24} />
+        </button>
+      </div>
+
+      {/* 节点信息显示 */}
+      <div className="absolute bottom-8 right-8 text-right z-40">
+        <p className="text-xs text-white/50 font-mono">节点 ID: {currentId}</p>
+        <p className="text-xs text-white/50 font-mono">类型: {node?.mediaType || '无'}</p>
+        {currentMediaUrl && !currentMediaUrl.startsWith('http') && (
+          <p className="text-xs text-green-500 font-mono mt-1">✓ 本地文件</p>
+        )}
+        <div className="mt-2 text-xs text-white/30 font-mono space-y-0.5">
+          <p>空格: 播放/暂停</p>
+          <p>R: 重新播放</p>
+          <p>ESC: 关闭</p>
+        </div>
+      </div>
 
       {/* 商业化锁定蒙层 */}
       {isLocked && (

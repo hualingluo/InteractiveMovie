@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "id": "p_1768283375731",
+    "id": "p_1768356885591",
     "name": "我的新剧本",
     "author": "游客创作者",
     "coverUrl": "",
@@ -12,28 +12,34 @@
     "styleMode": "late_shift",
     "interactivity": "classic",
     "layout": "cinematic",
-    "createdAt": "2026/1/13"
+    "createdAt": "2026/1/14"
   },
   "nodes": {
-    "node_001": {
-      "id": "node_001",
-      "title": "朱墙红梦",
-      "content": "金风飒飒，玉露初凝。你身为苏家最不受宠的庶女，终是换上这一身累赘的云霞缎，踏入了这重重锁闭的紫禁城。红墙如血，金瓦流辉，是荣华富贵的起点，亦是万丈深渊的入口。你立于午门之下，任由寒风吹乱鬓角。是俯首称臣，还是在这盛世天下中，博一个翻云覆雨？",
+    "node_01": {
+      "id": "node_01",
+      "title": "午夜交接",
+      "content": "凌晨2:14。雨。停车场。一个男人下车，满头大汗，递给你一把带血的钥匙。'别看后备箱。'他走了。",
       "options": [
         {
-          "id": "opt_001_1",
+          "id": "opt_01_a",
+          "isDefault": false,
+          "label": "遵医嘱（停车）",
+          "targetId": "node_02"
+        },
+        {
+          "id": "opt_01_b",
           "isDefault": true,
-          "label": "步步为营，隐忍待时",
-          "targetId": "node_002"
+          "label": "人性本恶（开箱）",
+          "targetId": "node_03"
         }
       ],
       "type": "scene",
       "x": 400,
       "y": 100,
-      "mediaType": "video",
-      "mediaSrc": "videos/node_001.mp4",
+      "mediaType": "none",
+      "mediaSrc": "",
       "audioSrc": "",
-      "styleMode": "shengshi",
+      "styleMode": "late_shift",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
@@ -57,121 +63,31 @@
         "uiBackgroundSrc": ""
       }
     },
-    "node_002": {
-      "id": "node_002",
-      "title": "投石问路",
-      "content": "内廷诡谲，党羽盘根。当今后宫，贵妃独宠，权倾朝野；皇后端庄，母仪天下却深藏不露。你是愿依附贵妃之势，借火焚林？还是投奔皇后麾下，借力打力？亦或是孤身孑影，在权力指缝间寻找那一线天机？",
+    "node_02": {
+      "id": "node_02",
+      "title": "幽灵车位",
+      "content": "你把车停在B4层。太静了。后备箱传出节奏感极强的敲击声。咚。咚咚。像是在打拍子。",
       "options": [
         {
-          "id": "opt_002_1",
-          "isDefault": false,
-          "label": "奉承贵妃：烈火烹油之盛",
-          "targetId": "node_003"
-        },
-        {
-          "id": "opt_002_2",
+          "id": "opt_02_a",
           "isDefault": true,
-          "label": "结盟皇后：细水长流之深",
-          "targetId": "node_004"
-        }
-      ],
-      "type": "decision",
-      "x": 400,
-      "y": 250,
-      "mediaType": "video",
-      "mediaSrc": "videos/node_002.mp4",
-      "audioSrc": "",
-      "styleMode": "shengshi",
-      "interactivity": "classic",
-      "interactiveSettings": {
-        "decisionTriggerTime": 7,
-        "autoTransition": true,
-        "duration": 15
-      },
-      "layout": {
-        "type": "cinematic",
-        "textPos": {
-          "x": 10,
-          "y": 75,
-          "w": 50,
-          "h": 20
+          "label": "检查声音",
+          "targetId": "node_03"
         },
-        "optionsPos": {
-          "x": 65,
-          "y": 65,
-          "w": 30,
-          "h": 30
-        },
-        "uiBackgroundSrc": ""
-      }
-    },
-    "node_003": {
-      "id": "node_003",
-      "title": "烈焰灼身",
-      "content": "贵妃生性乖戾，视你为走狗。她命你毒害受宠的陈嫔。此时此刻，你方知这锦绣前程之下，竟是森森白骨。你若从了，便是将刀柄递入他人之手；若是不从，此刻便要折在这延禧宫中。杀机如潮，你将如何抉择？",
-      "options": [
         {
-          "id": "opt_003_1",
+          "id": "opt_02_b",
           "isDefault": false,
-          "label": "顺从施毒：自断退路",
-          "targetId": "node_005"
-        },
-        {
-          "id": "opt_003_2",
-          "isDefault": true,
-          "label": "反戈一击：告密皇后",
-          "targetId": "node_004"
+          "label": "点根烟压惊",
+          "targetId": "node_04"
         }
       ],
       "type": "decision",
       "x": 200,
-      "y": 400,
-      "mediaType": "video",
-      "mediaSrc": "videos/node_003.mp4",
-      "audioSrc": "",
-      "styleMode": "shengshi",
-      "interactivity": "classic",
-      "interactiveSettings": {
-        "decisionTriggerTime": 7,
-        "autoTransition": true,
-        "duration": 15
-      },
-      "layout": {
-        "type": "cinematic",
-        "textPos": {
-          "x": 10,
-          "y": 75,
-          "w": 50,
-          "h": 20
-        },
-        "optionsPos": {
-          "x": 65,
-          "y": 65,
-          "w": 30,
-          "h": 30
-        },
-        "uiBackgroundSrc": ""
-      }
-    },
-    "node_004": {
-      "id": "node_004",
-      "title": "凤栖梧桐",
-      "content": "皇后深谋远虑，赞许你的机敏。在她的扶持下，你由末等庶女擢升为苏婕妤。然而，天子之情薄如蝉翼，皇后的恩宠亦有代价。她要你入职尚书房，替她监视前朝动向。权柄的滋味令你沉醉，可你亦深知，自己不过是皇后手中一枚牵制外戚的棋子。",
-      "options": [
-        {
-          "id": "opt_004_1",
-          "isDefault": true,
-          "label": "入主尚书：染指朝政",
-          "targetId": "node_006"
-        }
-      ],
-      "type": "scene",
-      "x": 600,
-      "y": 400,
+      "y": 300,
       "mediaType": "none",
       "mediaSrc": "",
       "audioSrc": "",
-      "styleMode": "shengshi",
+      "styleMode": "late_shift",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
@@ -195,25 +111,191 @@
         "uiBackgroundSrc": ""
       }
     },
-    "node_005": {
-      "id": "node_005",
-      "title": "废井残月",
-      "content": "百密一疏。陈嫔之死惊动龙颜，贵妃翻脸无情，将一切罪责推于你身。你被褫夺封号，打入冷宫。残月如钩，枯叶满地，你在这荒芜的院落中，是否悔不当初？若能重来，你是否还会踏入这吞噬灵魂的权力旋涡？",
+    "node_03": {
+      "id": "node_03",
+      "title": "潘多拉的盒饭",
+      "content": "你撬开了后备箱。里面没有尸体，只有一个正在自动加热的超豪华和牛便当，以及一个定时炸弹。还剩60秒。",
       "options": [
         {
-          "id": "opt_005_1",
+          "id": "opt_03_a",
+          "isDefault": false,
+          "label": "剪红线",
+          "targetId": "node_05"
+        },
+        {
+          "id": "opt_03_b",
           "isDefault": true,
-          "label": "一梦南柯：重回入宫之日",
-          "targetId": "node_001"
+          "label": "趁热吃",
+          "targetId": "node_06"
+        }
+      ],
+      "type": "decision",
+      "x": 600,
+      "y": 300,
+      "mediaType": "none",
+      "mediaSrc": "",
+      "audioSrc": "",
+      "styleMode": "late_shift",
+      "interactivity": "classic",
+      "interactiveSettings": {
+        "decisionTriggerTime": 7,
+        "autoTransition": true,
+        "duration": 15
+      },
+      "layout": {
+        "type": "cinematic",
+        "textPos": {
+          "x": 10,
+          "y": 75,
+          "w": 50,
+          "h": 20
+        },
+        "optionsPos": {
+          "x": 65,
+          "y": 65,
+          "w": 30,
+          "h": 30
+        },
+        "uiBackgroundSrc": ""
+      }
+    },
+    "node_04": {
+      "id": "node_04",
+      "title": "背后有人",
+      "content": "火机刚打着。一柄冷冰冰的东西顶住你的后脑勺。'我的便当呢？'一个穿西装的男人问。声线在抖。",
+      "options": [
+        {
+          "id": "opt_04_a",
+          "isDefault": true,
+          "label": "撒谎：在楼上",
+          "targetId": "node_07"
+        },
+        {
+          "id": "opt_04_b",
+          "isDefault": false,
+          "label": "实话：后备箱里",
+          "targetId": "node_03"
+        }
+      ],
+      "type": "decision",
+      "x": 100,
+      "y": 500,
+      "mediaType": "none",
+      "mediaSrc": "",
+      "audioSrc": "",
+      "styleMode": "late_shift",
+      "interactivity": "classic",
+      "interactiveSettings": {
+        "decisionTriggerTime": 7,
+        "autoTransition": true,
+        "duration": 15
+      },
+      "layout": {
+        "type": "cinematic",
+        "textPos": {
+          "x": 10,
+          "y": 75,
+          "w": 50,
+          "h": 20
+        },
+        "optionsPos": {
+          "x": 65,
+          "y": 65,
+          "w": 30,
+          "h": 30
+        },
+        "uiBackgroundSrc": ""
+      }
+    },
+    "node_05": {
+      "id": "node_05",
+      "title": "拆弹专家",
+      "content": "红线断了。计时器停在00:01。便当发出‘叮’的一声，熟了。你赢了，但这辈子没这么无语过。",
+      "options": [],
+      "type": "ending",
+      "x": 500,
+      "y": 700,
+      "mediaType": "none",
+      "mediaSrc": "",
+      "audioSrc": "",
+      "styleMode": "late_shift",
+      "interactivity": "classic",
+      "interactiveSettings": {
+        "decisionTriggerTime": 7,
+        "autoTransition": true,
+        "duration": 15
+      },
+      "layout": {
+        "type": "cinematic",
+        "textPos": {
+          "x": 10,
+          "y": 75,
+          "w": 50,
+          "h": 20
+        },
+        "optionsPos": {
+          "x": 65,
+          "y": 65,
+          "w": 30,
+          "h": 30
+        },
+        "uiBackgroundSrc": ""
+      }
+    },
+    "node_06": {
+      "id": "node_06",
+      "title": "最后的晚餐",
+      "content": "和牛入口即化。炸弹爆炸前的一秒，你意识到这是你吃过最赞的一餐。物理意义上的魂飞魄散。",
+      "options": [],
+      "type": "ending",
+      "x": 700,
+      "y": 700,
+      "mediaType": "none",
+      "mediaSrc": "",
+      "audioSrc": "",
+      "styleMode": "late_shift",
+      "interactivity": "classic",
+      "interactiveSettings": {
+        "decisionTriggerTime": 7,
+        "autoTransition": true,
+        "duration": 15
+      },
+      "layout": {
+        "type": "cinematic",
+        "textPos": {
+          "x": 10,
+          "y": 75,
+          "w": 50,
+          "h": 20
+        },
+        "optionsPos": {
+          "x": 65,
+          "y": 65,
+          "w": 30,
+          "h": 30
+        },
+        "uiBackgroundSrc": ""
+      }
+    },
+    "node_07": {
+      "id": "node_07",
+      "title": "硬核对峙",
+      "content": "男人带你走向电梯。他走在前面。这是你唯一的机会。地上的灭火器看起来很趁手。",
+      "options": [
+        {
+          "id": "opt_07_a",
+          "isDefault": true,
+          "label": "攻击其头部",
+          "targetId": "node_08"
         }
       ],
       "type": "interrupt",
-      "x": 200,
-      "y": 550,
+      "x": 100,
+      "y": 700,
       "mediaType": "none",
       "mediaSrc": "",
       "audioSrc": "",
-      "styleMode": "shengshi",
+      "styleMode": "late_shift",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
@@ -237,108 +319,18 @@
         "uiBackgroundSrc": ""
       }
     },
-    "node_006": {
-      "id": "node_006",
-      "title": "岁除惊变",
-      "content": "除夕盛宴，灯火辉煌。你却在御书房密折中发现了苏家勾结敌国的铁证。若此折呈上，苏家满门抄斩；若按下不表，便是欺君罔上。一边是生养你的家族血脉，一边是触手可及的锦绣前程。家国大义，利弊权衡，你的心跳如擂鼓般沉闷。",
-      "options": [
-        {
-          "id": "opt_006_1",
-          "isDefault": false,
-          "label": "大义灭亲：亲手埋葬苏家",
-          "targetId": "node_007"
-        },
-        {
-          "id": "opt_006_2",
-          "isDefault": true,
-          "label": "毁尸灭迹：守护血脉之根",
-          "targetId": "node_008"
-        }
-      ],
-      "type": "decision",
-      "x": 600,
-      "y": 550,
-      "mediaType": "none",
-      "mediaSrc": "",
-      "audioSrc": "",
-      "styleMode": "shengshi",
-      "interactivity": "classic",
-      "interactiveSettings": {
-        "decisionTriggerTime": 7,
-        "autoTransition": true,
-        "duration": 15
-      },
-      "layout": {
-        "type": "cinematic",
-        "textPos": {
-          "x": 10,
-          "y": 75,
-          "w": 50,
-          "h": 20
-        },
-        "optionsPos": {
-          "x": 65,
-          "y": 65,
-          "w": 30,
-          "h": 30
-        },
-        "uiBackgroundSrc": ""
-      }
-    },
-    "node_007": {
-      "id": "node_007",
-      "title": "孤凰登极",
-      "content": "你亲手呈上密折，苏家覆灭，鲜血染红了宫外的古道。皇帝感念你的忠诚，册封你为皇贵妃，代行皇后职权。你站在万民敬仰的太和殿前，听着那山呼万岁的回响，身边却无一亲信。你终是赢得了这天下，也终是输掉了那颗曾经赤诚的心。盛世天下，唯余一人。",
+    "node_08": {
+      "id": "node_08",
+      "title": "职业误会",
+      "content": "男人倒下了。他怀里的证件掉出来：‘米其林秘密探店员’。他只是想在便当冷掉前确认它的安全。你完蛋了。",
       "options": [],
       "type": "ending",
-      "x": 450,
-      "y": 700,
+      "x": 100,
+      "y": 900,
       "mediaType": "none",
       "mediaSrc": "",
       "audioSrc": "",
-      "styleMode": "shengshi",
-      "interactivity": "classic",
-      "interactiveSettings": {
-        "decisionTriggerTime": 7,
-        "autoTransition": true,
-        "duration": 15
-      },
-      "layout": {
-        "type": "cinematic",
-        "textPos": {
-          "x": 10,
-          "y": 75,
-          "w": 50,
-          "h": 20
-        },
-        "optionsPos": {
-          "x": 65,
-          "y": 65,
-          "w": 30,
-          "h": 30
-        },
-        "uiBackgroundSrc": ""
-      }
-    },
-    "node_008": {
-      "id": "node_008",
-      "title": "灰飞烟灭",
-      "content": "你烧毁了证据，却不料这竟是皇帝为你布下的最后一局试探。帝王之爱，终究抵不过对权力的猜忌。御林军破门而入，你看着那熟悉的、曾经对你温柔低语的君王，眼中满是冷酷。火光冲天，你在这富丽堂皇的深宫中化为飞灰。若有来生，定不再入这围城。",
-      "options": [
-        {
-          "id": "opt_008_1",
-          "isDefault": true,
-          "label": "因果轮转：再续前缘",
-          "targetId": "node_001"
-        }
-      ],
-      "type": "ending",
-      "x": 750,
-      "y": 700,
-      "mediaType": "none",
-      "mediaSrc": "",
-      "audioSrc": "",
-      "styleMode": "shengshi",
+      "styleMode": "late_shift",
       "interactivity": "classic",
       "interactiveSettings": {
         "decisionTriggerTime": 7,
@@ -367,7 +359,7 @@
   "viewport": {
     "x": 0,
     "y": 0,
-    "zoom": 1
+    "zoom": 0.6000000000000001
   },
-  "updatedAt": "2026-01-13T05:57:16.405Z"
+  "updatedAt": "2026-01-14T02:29:17.023Z"
 }
