@@ -1,8 +1,20 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { StoryNode, NodeType, StyleMode, InteractivityType } from '../types';
+import { getGeminiApiKey } from './configService';
 
 // Global instance for general text and image tasks (gemini-3-flash and gemini-2.5-flash-image)
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+let ai: GoogleGenAI | null = null;
+
+/**
+ * 初始化 AI 实例
+ */
+const initializeAI = async (): Promise<GoogleGenAI> => {
+  if (!ai) {
+    const apiKey = await getGeminiApiKey();
+    ai = new GoogleGenAI({ apiKey });
+  }
+  return ai;
+};
 
 const STYLE_PROMPTS: Record<StyleMode, string> = {
   late_shift: "风格：美式硬核悬疑《夜班》。台词极简、冷酷，充满即时决策压力。场景多发生在都市夜景、停车场、仓库。",
@@ -58,8 +70,9 @@ export const generateStoryStructure = async (
   };
 
   try {
+    const aiInstance = await initializeAI();
     // 显式使用 gemini-3-flash-preview 模型处理制片计划生成
-    const response = await ai.models.generateContent({
+    const response = await aiInstance.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: prompt,
       config: {
@@ -102,13 +115,14 @@ export const generateSceneVideo = async (description: string, styleMode: StyleMo
             const hasKey = await (window as any).aistudio.hasSelectedApiKey();
             if (!hasKey) await (window as any).aistudio.openSelectKey();
         }
-        const videoAi = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        const apiKey = await getGeminiApiKey();
+        const videoAi = new GoogleGenAI({ apiKey });
         const styleVisual = {
             late_shift: "Dark neon noir, anamorphic lens flares, high contrast, gritty cinematic.",
             meibao: "Bright, high-key lighting, soft focus, first person perspective (POV), colorful modern lifestyle.",
             shengshi: "Ancient China epic, golden hour, traditional palace architecture, grand cinematography."
         };
-        
+
         let operation = await videoAi.models.generateVideos({
             model: 'veo-3.1-fast-generate-preview',
             prompt: `Cinematic movie shot, 21:9, ${styleVisual[styleMode]}. Scene: ${description}`,
@@ -122,7 +136,7 @@ export const generateSceneVideo = async (description: string, styleMode: StyleMo
 
         const videoUri = operation.response?.generatedVideos?.[0]?.video?.uri;
         if (videoUri) {
-            const res = await fetch(`${videoUri}&key=${process.env.API_KEY}`);
+            const res = await fetch(`${videoUri}&key=${apiKey}`);
             const blob = await res.blob();
             return URL.createObjectURL(blob);
         }
@@ -132,7 +146,8 @@ export const generateSceneVideo = async (description: string, styleMode: StyleMo
 
 export const polishNodeText = async (text: string, styleMode: StyleMode): Promise<string> => {
     try {
-        const response = await ai.models.generateContent({
+        const aiInstance = await initializeAI();
+        const response = await aiInstance.models.generateContent({
             model: 'gemini-3-flash-preview',
             contents: `作为编剧，按以下风格润色这段台词：${STYLE_PROMPTS[styleMode]}。原文：${text}`,
         });
@@ -142,13 +157,14 @@ export const polishNodeText = async (text: string, styleMode: StyleMode): Promis
 
 export const generateSceneImage = async (description: string, styleMode: StyleMode): Promise<string | null> => {
     try {
+        const aiInstance = await initializeAI();
         const styleVisual = {
             late_shift: "Cyberpunk neon crime style, realistic movie frame, 21:9.",
             meibao: "Realistic high-quality cinematography, bright romantic lighting, POV shot, 21:9.",
             shengshi: "Ancient Chinese realistic cinematic epic, grand palace, 21:9."
         };
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash-image', 
+        const response = await aiInstance.models.generateContent({
+            model: 'gemini-2.5-flash-image',
             contents: `Interaction movie still, ${styleVisual[styleMode]}. Scene: ${description}`,
             config: { imageConfig: { aspectRatio: "16:9" } }
         });
@@ -159,8 +175,9 @@ export const generateSceneImage = async (description: string, styleMode: StyleMo
 
 export const generateCharacterAvatar = async (name: string, description: string, style: string): Promise<string | null> => {
     try {
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash-image', 
+        const aiInstance = await initializeAI();
+        const response = await aiInstance.models.generateContent({
+            model: 'gemini-2.5-flash-image',
             contents: `角色定妆照，电影写实感。角色：${name}, 描述：${description}, 风格：${style}`,
         });
         const part = response.candidates?.[0]?.content?.parts.find(p => p.inlineData);

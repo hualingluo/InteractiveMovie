@@ -6,6 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { runFlutterBuild } from './src/services/builder/flutterBuilder.js';
 import { buildExe } from './src/services/builder/flutterBuilderNew.js';
 import scriptRoutes from './src/routes/scriptRoutes.js';
+import movieRoutes from './src/routes/movieRoutes.js';
+import { testConnection } from './config/database.js';
 
 // --- 路径变量配置 ---
 const __filename = fileURLToPath(import.meta.url);
@@ -32,14 +34,27 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// 获取 Gemini API Key 接口
+app.get('/api/config/gemini-key', (req, res) => {
+  const geminiKey = process.env.GEMINI_API_KEY;
+  if (!geminiKey) {
+    return res.status(500).json({ error: 'Gemini API Key not configured on server' });
+  }
+  res.json({ apiKey: geminiKey });
+});
+
 // 剧本管理路由
 app.use('/api/scripts', scriptRoutes);
+
+// 电影数据管理路由
+app.use('/api/movies', movieRoutes);
 
 // 默认首页路由 (如果 public 里没有 index.html)
 app.get('/', (req, res) => {
   res.send('Node.js 项目已成功启动');
 });
 
+// Flutter 构建相关路由 (暂时注释,等待构建模块实现)
 // app.post('/api/start-build', async (req, res) => {
 //     try {
 //         const result = await runBuildTask(req.body);
@@ -104,10 +119,13 @@ app.get('/api/start-build-new', async (req, res) => {
 });
 
 // --- 启动服务 ---
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`\n==================================`);
   console.log(`🚀 服务已启动!`);
   console.log(`本地访问: http://localhost:${PORT}`);
   console.log(`健康检查: http://localhost:${PORT}/api/health`);
   console.log(`==================================\n`);
+
+  // 测试数据库连接
+  await testConnection();
 });
