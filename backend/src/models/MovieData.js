@@ -1,4 +1,4 @@
-import pool from '../../config/database.js';
+import pool from '../config/database.js';
 
 /**
  * 安全地解析JSON数据
