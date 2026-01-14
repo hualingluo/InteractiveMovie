@@ -105,7 +105,6 @@ class StoryController extends ChangeNotifier {
     if (newNode.mediaType == "video" && newNode.mediaSrc.isNotEmpty) {
       // 设置不循环播放
       await player.setPlaylistMode(PlaylistMode.none);
-<<<<<<< Updated upstream
 
       try {
         // 优先从 data/videos 读取（release 目录下的视频）
@@ -146,10 +145,6 @@ class StoryController extends ChangeNotifier {
           debugPrint('❌ assets 视频也加载失败: $e2');
         }
       }
-=======
-      // 使用 Flutter asset 协议，确保在 Android/iOS 上都能正确加载
-      await player.open(Media('asset://assets/videos/${newNode.mediaSrc}'));
->>>>>>> Stashed changes
     } else {
       await player.stop();
       // 如果没有视频，使用兜底定时器

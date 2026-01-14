@@ -6,6 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { runFlutterBuild } from './src/services/builder/flutterBuilder.js';
 import { buildExe } from './src/services/builder/flutterBuilderNew.js';
 import scriptRoutes from './src/routes/scriptRoutes.js';
+import movieRoutes from './src/routes/movieRoutes.js';
+import { testConnection } from './config/database.js';
 
 // --- 路径变量配置 ---
 const __filename = fileURLToPath(import.meta.url);
@@ -32,8 +34,17 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// 剧本管理路由 (暂时注释,等待实现)
-// app.use('/api/scripts', scriptRoutes);
+// 获取 Gemini API Key 接口
+app.get('/api/config/gemini-key', (req, res) => {
+  const geminiKey = process.env.GEMINI_API_KEY;
+  if (!geminiKey) {
+    return res.status(500).json({ error: 'Gemini API Key not configured on server' });
+  }
+  res.json({ apiKey: geminiKey });
+});
+
+// 剧本管理路由
+app.use('/api/scripts', scriptRoutes);
 
 // 电影数据管理路由
 app.use('/api/movies', movieRoutes);
