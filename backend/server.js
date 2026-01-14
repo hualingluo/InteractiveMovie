@@ -7,7 +7,7 @@ import { runFlutterBuild } from './src/services/builder/flutterBuilder.js';
 import { buildExe } from './src/services/builder/flutterBuilderNew.js';
 import scriptRoutes from './src/routes/scriptRoutes.js';
 import movieRoutes from './src/routes/movieRoutes.js';
-import { testConnection } from './config/database.js';
+import { testConnection } from './src/config/database.js';
 
 // --- 路径变量配置 ---
 const __filename = fileURLToPath(import.meta.url);
